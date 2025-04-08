@@ -29,9 +29,11 @@ type Set[T comparable] interface {
 	Difference(other Set[T]) Set[T]
 }
 
-// NewSet creates a new no concurrent set with the given elements.
+// NewSet creates a set with the given elements.
+// It is not safe for concurrent use.
+// Use NewSafeSet for concurrent use.
 func NewSet[T comparable](vs ...T) Set[T] {
-	s := newNoConcurrentSet[T](len(vs))
+	s := newUnsafeSet[T](len(vs))
 	for _, v := range vs {
 		s.Add(v)
 	}
@@ -39,9 +41,9 @@ func NewSet[T comparable](vs ...T) Set[T] {
 	return s
 }
 
-// NewConcurrentSet creates a new concurrent set with the given elements.
-func NewConcurrentSet[T comparable](vs ...T) Set[T] {
-	s := newConcurrentSet[T](len(vs))
+// NewSafeSet creates a concurrent safe set with the given elements.
+func NewSafeSet[T comparable](vs ...T) Set[T] {
+	s := newSafeSet[T](len(vs))
 	for _, v := range vs {
 		s.Add(v)
 	}

@@ -7,7 +7,7 @@ import (
 	set "github.com/kafkaphoenix/goset"
 )
 
-func noConcurrentDemo() {
+func nonConcurrentDemo() {
 	fmt.Println("///////////Non-concurrent set demo")
 	// Create a new set
 
@@ -50,9 +50,9 @@ func noConcurrentDemo() {
 }
 
 func concurrentDemo() {
-	fmt.Println("///////////Concurrent set demo")
-	// Create a new concurrent set
-	cs := set.NewConcurrentSet[int]()
+	fmt.Println("///////////Concurrent safe set demo")
+	// Create a new concurrent safe set
+	cs := set.NewSafeSet[int]()
 
 	const numGoroutines = 5
 
@@ -61,7 +61,7 @@ func concurrentDemo() {
 	var wg sync.WaitGroup
 
 	// Start multiple goroutines to add and remove elements
-	fmt.Println("Adding and removing elements in concurrent set...")
+	fmt.Println("Adding and removing elements in concurrent safe set...")
 	fmt.Printf("Number of goroutines: %d, Operations per goroutine: %d\n", numGoroutines, opsPerGoroutine)
 	fmt.Println("Removing even numbers...")
 	fmt.Println("Adding odd numbers...")
@@ -122,7 +122,7 @@ func setOperations() {
 }
 
 func main() {
-	noConcurrentDemo()
+	nonConcurrentDemo()
 	concurrentDemo()
 	setOperations()
 }
