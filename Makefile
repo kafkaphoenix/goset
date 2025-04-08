@@ -9,9 +9,13 @@ lint: ## Run golangci-lint fixing issues
 	golangci-lint run --fix
 
 .PHONY: tests
-tests: ## Run tests
+tests: ## Run tests checking race conditions
 	go test --tags=unit,integration -coverpkg=$(go list ./... | grep -v /example/)
 
 .PHONY: example
 example: ## Run example
 	go run ./example/main.go
+
+.PHONY: racetests
+racetests: ## Run tests with race condition checking
+	CGO_ENABLED=1 go test -race --tags=unit,integration -coverpkg=$(go list ./... | grep -v /example/)
