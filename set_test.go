@@ -3,9 +3,10 @@
 package goset_test
 
 import (
-	"github.com/kafkaphoenix/goset"
 	"slices"
 	"testing"
+
+	"github.com/kafkaphoenix/goset"
 )
 
 func TestNewSet_OK(t *testing.T) {

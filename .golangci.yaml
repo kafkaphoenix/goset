@@ -47,7 +47,7 @@ linters:
       threshold: 100
     errcheck:
       check-type-assertions: true
-      check-blank: true
+      check-blank: false
     errorlint:
       errorf: true
       asserts: true

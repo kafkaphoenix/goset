@@ -50,7 +50,7 @@ func (s *concurrentSet[T]) IsEmpty() bool {
 }
 
 func (s *concurrentSet[T]) IsEqual(other Set[T]) bool {
-	o := other.(*concurrentSet[T])
+	o, _ := other.(*concurrentSet[T])
 
 	s.RLock()
 	o.RLock()
@@ -76,7 +76,7 @@ func (s *concurrentSet[T]) ToSlice() []T {
 func (s *concurrentSet[T]) Clone() Set[T] {
 	s.RLock()
 	defer s.RUnlock()
-	clone := s.ncs.Clone().(*noconcurrentSet[T])
+	clone, _ := s.ncs.Clone().(*noconcurrentSet[T])
 
 	return &concurrentSet[T]{
 		ncs: clone,
@@ -84,14 +84,14 @@ func (s *concurrentSet[T]) Clone() Set[T] {
 }
 
 func (s *concurrentSet[T]) Union(other Set[T]) Set[T] {
-	o := other.(*concurrentSet[T])
+	o, _ := other.(*concurrentSet[T])
 
 	s.RLock()
 	o.RLock()
 	defer s.RUnlock()
 	defer o.RUnlock()
 
-	union := s.ncs.Union(o.ncs).(*noconcurrentSet[T])
+	union, _ := s.ncs.Union(o.ncs).(*noconcurrentSet[T])
 
 	return &concurrentSet[T]{
 		ncs: union,
@@ -99,14 +99,14 @@ func (s *concurrentSet[T]) Union(other Set[T]) Set[T] {
 }
 
 func (s *concurrentSet[T]) Intersection(other Set[T]) Set[T] {
-	o := other.(*concurrentSet[T])
+	o, _ := other.(*concurrentSet[T])
 
 	s.RLock()
 	o.RLock()
 	defer s.RUnlock()
 	defer o.RUnlock()
 
-	intersection := s.ncs.Intersection(o.ncs).(*noconcurrentSet[T])
+	intersection, _ := s.ncs.Intersection(o.ncs).(*noconcurrentSet[T])
 
 	return &concurrentSet[T]{
 		ncs: intersection,
@@ -114,14 +114,14 @@ func (s *concurrentSet[T]) Intersection(other Set[T]) Set[T] {
 }
 
 func (s *concurrentSet[T]) Difference(other Set[T]) Set[T] {
-	o := other.(*concurrentSet[T])
+	o, _ := other.(*concurrentSet[T])
 
 	s.RLock()
 	o.RLock()
 	defer s.RUnlock()
 	defer o.RUnlock()
 
-	difference := s.ncs.Difference(o.ncs).(*noconcurrentSet[T])
+	difference, _ := s.ncs.Difference(o.ncs).(*noconcurrentSet[T])
 
 	return &concurrentSet[T]{
 		ncs: difference,

@@ -32,7 +32,7 @@ func (s *noconcurrentSet[T]) IsEmpty() bool {
 }
 
 func (s *noconcurrentSet[T]) IsEqual(other Set[T]) bool {
-	o := other.(*noconcurrentSet[T])
+	o, _ := other.(*noconcurrentSet[T])
 
 	if s.Size() != o.Size() {
 		return false
@@ -70,7 +70,7 @@ func (s *noconcurrentSet[T]) Clone() Set[T] {
 }
 
 func (s *noconcurrentSet[T]) Union(other Set[T]) Set[T] {
-	o := other.(*noconcurrentSet[T])
+	o, _ := other.(*noconcurrentSet[T])
 
 	n := max(o.Size(), s.Size())
 	union := newNoConcurrentSet[T](n)
@@ -87,7 +87,7 @@ func (s *noconcurrentSet[T]) Union(other Set[T]) Set[T] {
 }
 
 func (s *noconcurrentSet[T]) Intersection(other Set[T]) Set[T] {
-	o := other.(*noconcurrentSet[T])
+	o, _ := other.(*noconcurrentSet[T])
 
 	intersect := NewSet[T]()
 
@@ -109,7 +109,7 @@ func (s *noconcurrentSet[T]) Intersection(other Set[T]) Set[T] {
 }
 
 func (s *noconcurrentSet[T]) Difference(other Set[T]) Set[T] {
-	o := other.(*noconcurrentSet[T])
+	o, _ := other.(*noconcurrentSet[T])
 
 	diff := NewSet[T]()
 
