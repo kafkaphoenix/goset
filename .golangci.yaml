@@ -1,0 +1,190 @@
+version: "2"
+linters:
+  enable:
+    - asciicheck
+    - bodyclose
+    - copyloopvar
+    - dogsled
+    - durationcheck
+    - err113
+    - errorlint
+    - exhaustive
+    - funlen
+    - gochecknoglobals
+    - gochecknoinits
+    - gocognit
+    - goconst
+    - gocritic
+    - gocyclo
+    - godox
+    - goprintffuncname
+    - gosec
+    - iface
+    - inamedparam
+    - lll
+    - misspell
+    - nestif
+    - noctx
+    - nolintlint
+    - perfsprint
+    - prealloc
+    - reassign
+    - revive
+    - sloglint
+    - staticcheck
+    - testpackage
+    - tparallel
+    - unconvert
+    - unparam
+    - usestdlibvars
+    - whitespace
+    - wsl
+  settings:
+    cyclop:
+      max-complexity: 15
+      package-average: 10
+    dupl:
+      threshold: 100
+    errcheck:
+      check-type-assertions: true
+      check-blank: true
+    errorlint:
+      errorf: true
+      asserts: true
+      comparison: true
+    exhaustive:
+      check:
+        - switch
+        - map
+      default-signifies-exhaustive: false
+    funlen:
+      lines: 100
+      statements: 50
+      ignore-comments: true
+    gocognit:
+      min-complexity: 21
+    goconst:
+      min-len: 2
+      min-occurrences: 2
+    gocritic:
+      settings:
+        captLocal:
+          paramsOnly: false
+        underef:
+          skipRecvDeref: false
+    gocyclo:
+      min-complexity: 15
+    godox:
+      keywords:
+        - BUG
+        - FIXME
+        - DEBUG
+    govet:
+      disable:
+        - fieldalignment
+      enable-all: true
+      settings:
+        shadow:
+          strict: true
+    inamedparam:
+      skip-single-param: true
+    lll:
+      line-length: 150
+    misspell:
+      locale: US
+    mnd:
+      ignored-functions:
+        - args.Error
+        - flag.Arg
+        - flag.Duration.*
+        - flag.Float.*
+        - flag.Int.*
+        - flag.Uint.*
+        - os.Chmod
+        - os.Mkdir.*
+        - os.OpenFile
+        - os.WriteFile
+    nolintlint:
+      require-explanation: true
+      require-specific: true
+    perfsprint:
+      strconcat: false
+    reassign:
+      patterns:
+        - .*
+    sloglint:
+      no-mixed-args: false
+      kv-only: false
+      attr-only: true
+      no-global: all
+      static-msg: true
+      no-raw-keys: false
+      key-naming-case: snake
+      args-on-sep-lines: true
+    whitespace:
+      multi-if: false
+      multi-func: false
+    wsl:
+      strict-append: true
+      allow-assign-and-call: true
+      allow-assign-and-anything: false
+      allow-multiline-assign: true
+      force-case-trailing-whitespace: 0
+      allow-trailing-comment: false
+      allow-separated-leading-comment: false
+      allow-cuddle-declarations: false
+      force-err-cuddling: false
+      force-short-decl-cuddling: false
+  exclusions:
+    generated: lax
+    rules:
+      - linters:
+          - funlen
+          - gochecknoglobals
+          - gosec
+          - mnd
+        path: _test\.go
+      - linters:
+          - gocritic
+        text: 'unnecessaryDefer:'
+      - linters:
+          - govet
+        text: 'shadow: declaration of "(err|ctx)" shadows declaration at'
+      - path: (.+)\.go$
+        text: Error return value of .((os\.)?std(out|err)\..*|.*Close|.*Flush|os\.Remove(All)?|.*print(f|ln)?|os\.(Un)?Setenv). is not checked
+      - path: (.+)\.go$
+        text: (possible misuse of unsafe.Pointer|should have signature)
+      - path: (.+)\.go$
+        text: Use of unsafe calls should be audited
+      - path: (.+)\.go$
+        text: Subprocess launch(ed with variable|ing should be audited)
+      - path: (.+)\.go$
+        text: (G104|G307)
+      - path: (.+)\.go$
+        text: (Expect directory permissions to be 0750 or less|Expect file permissions to be 0600 or less)
+      - path: (.+)\.go$
+        text: Potential file inclusion via variable
+      - path: (.+)\.go$
+        text: (comment on exported (method|function|type|const)|should have( a package)? comment|comment should be of the form)
+      - path: (.+)\.go$
+        text: .*\.pb\.go$
+    paths:
+      - .git
+      - .github
+formatters:
+  enable:
+    - gofmt
+    - goimports
+  settings:
+    gofmt:
+      simplify: true
+      rewrite-rules:
+        - pattern: interface{}
+          replacement: any
+        - pattern: a[b:len(a)]
+          replacement: a[b:]
+  exclusions:
+    generated: lax
+    paths:
+      - .git
+      - .github
