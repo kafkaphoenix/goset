@@ -10,4 +10,8 @@ lint: ## Run golangci-lint fixing issues
 
 .PHONY: tests
 tests: ## Run tests
-	go test ./... --tags=unit,integration -coverpkg=./...
+	go test --tags=unit,integration -coverpkg=$(go list ./... | grep -v /example/)
+
+.PHONY: example
+example: ## Run example
+	go run ./example/main.go

@@ -8,35 +8,8 @@ Goset is a Go library that provides a simple and efficient way to work with [gen
 - Perform set operations such as union, intersection, and difference.
 
 ## Example
-```go
-package main
-
-import (
-    "fmt"
-    "github.com/yourusername/goset"
-)
-
-func main() {
-    // Create a new set
-    s := goset.NewSet[int]()
-    
-    // Add elements to the set
-    s.Add(1)
-    s.Add(2)
-    s.Add(3)
-    
-    // Check if an element is in the set
-    fmt.Println(s.Contains(2)) // true
-    
-    // Remove an element from the set
-    s.Remove(2)
-    
-    // Get the size of the set
-    fmt.Println(s.Size()) // 2
-    
-    // Iterate over the elements in the set
-    for _, v := range s.Values() {
-        fmt.Println(v) // 1, 3
-    }
-}
+Run the example code:
+```sh
+make example
 ```
+This will run the example code in `example/main.go`, which demonstrates how to create and manipulate sets using the library.
